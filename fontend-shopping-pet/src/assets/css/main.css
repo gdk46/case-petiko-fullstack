@@ -1,0 +1,24 @@
+body {
+    background-color: #fffdfd;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+}
+
+.btn-bg-template {
+    outline: none;
+    background-color: #ffb03a;
+    padding: .25rem 2rem;
+    font-family: 'Nunito';
+    font-weight: 500;
+}
+
+@media (min-width:760px){
+    .card-adjust {
+        width: 320px;
+        min-height: 450px;
+        margin-right: .5rem;
+    }
+}
