@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="pt-br" dir="ltr">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Shopping Pet</title>
@@ -28,12 +27,12 @@
             <div class="card card-adjust">
                 <div class="card-body row g-3">
                     <div class="d-flex align-items-center justify-content-center">
-                        <img src="./src/assets/img/user.png" alt="">
+                        <img src="./src/assets/img/user.png" alt="" width="95">
                     </div>
                     
                     <div class="col-12">
-                        <label for="name" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="name">
+                        <label for="name" class="form-label">*Nome</label>
+                        <input type="text" class="form-control" id="name" required>
                     </div>
                 </div>
             </div>
@@ -41,13 +40,13 @@
             <div class="card card-adjust">
                 <div class="card-body row g-3">
                     <div class="col-12">
-                        <label for="cep" class="form-label">CEP</label>
+                        <label for="cep" class="form-label">*CEP</label>
                         <input type="text" class="form-control" id="cep">
                     </div>
 
                     <div class="col-12">
-                        <label for="address" class="form-label">Endereço</label>
-                        <input type="text" class="form-control" id="address" placeholder="">
+                        <label for="address" class="form-label">*Endereço</label>
+                        <input type="text" class="form-control" id="address">
                     </div>
     
                     <div class="col-12">
@@ -56,17 +55,17 @@
                     </div>
     
                     <div class="col-12">
-                        <label for="district" class="form-label">Bairro</label>
+                        <label for="district" class="form-label">*Bairro</label>
                         <input type="text" class="form-control" id="district">
                     </div>
     
                     <div class="col-8">
-                        <label for="location" class="form-label">Cidade</label>
+                        <label for="location" class="form-label">*Cidade</label>
                         <input type="text" class="form-control" id="location">
                     </div>
     
                     <div class="col-4">
-                        <label for="federative_unit" class="form-label">UF</label>
+                        <label for="federative_unit" class="form-label">*UF</label>
                         <input type="text" class="form-control" id="federative_unit">
                     </div>
     
@@ -83,17 +82,42 @@
     
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js" integrity="sha512-d4KkQohk+HswGs6A1d6Gak6Bb9rMWtxjOa0IiY49Q3TeFd5xAzjWXDCBW9RS7m86FQ4RzM2BdHmdJnnKRYknxw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Script APP -->
     <script>
         $(document).ready(function() {
+            $("#cep").mask("99999-999")
+            
+            $("#cep").keyup(function() {
+                if ($("#cep").length) {
+                    let cep = $("#cep");
+                    let url = `https://viacep.com.br/ws/${cep}/json/`;
+                    $.ajax({
+                        url: url,
+                        dataType: 'jsonp',
+                        crossDomain: true,
+                        contentType: "application/json",
+                        success: function(json) {
+                            if (json.logradouro) {
+                                $("#address").val(json.logradouro);
+                                $("#complement").val(json.complemento);
+                                $("#district").val(json.bairro);
+                                $("#location").val(json.localidade);
+                                $("#federative_unit").val(json.uf);
+                            }
+                        }
+                    });
+                }
+            });
+
             $("#enviar").click(function() {
                 event.preventDefault();
-                alert();
                 $.ajax({
                     method: "POST",
                     url: "http://127.0.0.1:8181/api/criar/cliente",
                     data: { 
-                        nome: $("#name").val(),
+                        name: $("#name").val(),
                         cep: $("#cep").val(),
                         address: $("#address").val(),
                         complement: $("#complement").val(),
@@ -104,7 +128,7 @@
                     success: function(data) {
                         alert();
                     }
-                })
+                }) 
             })    
         })
     </script>
