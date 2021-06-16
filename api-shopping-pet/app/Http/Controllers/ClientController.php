@@ -35,8 +35,16 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
-        return Client::create($request->all());
+        $cep = $request->input('cep');
+        $url = "https://viacep.com.br/ws/{$cep}/json/";
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $address = json_decode(curl_exec($ch));
+        
+        if($request->input('cep') == $address->cep) {
+            return Client::create($request->all());
+        }
     }
 
     /**
