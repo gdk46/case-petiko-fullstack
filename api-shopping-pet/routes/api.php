@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\BuyController;
 
 
 /*
@@ -17,3 +18,4 @@ use App\Http\Controllers\ClientController;
 */
 
 Route::post('/criar/cliente', [ClientController::class, 'store']);
+Route::post('/criar/compra', [BuyController::class, 'store']);
