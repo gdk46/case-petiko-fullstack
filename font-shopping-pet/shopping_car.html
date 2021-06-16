@@ -23,28 +23,26 @@
   <body>
     <main id="root">
         <section class="container d-flex align-items-center justify-content-center flex-column">
-            <form action="" class="d-flex flex-wrap mt-5">
-                <div class="card card-adjust">
-                    <div class="card-body row g-3">                    
-                        <div class="col-12">
-                            <div class="card mb-3" style="max-width: 540px;">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <img src="./src/assets/img/exemplo.jpg" alt="..." height="100px">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Escova Removedora de Pelos - Bom Amigo </h5>
-                                            <p class="card-text">R$:100,00</p>
-                                        </div>
+            <div class="card card-adjust">
+                <div class="card-body row g-3">                    
+                    <div class="col-12">
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="./src/assets/img/exemplo.jpg" alt="..." height="100px">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Escova Removedora de Pelos - Bom Amigo </h5>
+                                        <p class="card-text">R$:100,00</p>
                                     </div>
                                 </div>
                             </div>
-                            <button id="finish" class="btn btn-success">finalizar compra</button>
                         </div>
+                        <button id="finish" class="btn btn-success">finalizar compra</button>
                     </div>
                 </div>
-            </form>
+            </div>
         </section>
     </main>
     
@@ -64,7 +62,8 @@
                         user_id: localStorage.getItem('idUser'),
                     },
                     success: function(data) {
-                        alert();        
+                        alert('compra finalizada');
+                        window.location.href = "index.html"
                     }
                 })
             })
